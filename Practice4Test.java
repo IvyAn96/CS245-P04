@@ -1,4 +1,4 @@
-
+package P4;
 public class Practice4Test {
 	
 	protected Queue queue;
@@ -26,17 +26,20 @@ public class Practice4Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
-		for (int i = 0; i < item.length(); i++) {
-			stack.push(item.substring(i, i+1));
-			queue.enqueue(item.substring(i, i+1));
+		String str2 = item.replace(" ", "").toLowerCase();
+		char[] chr = str2.toCharArray();
+		for (int i = 0; i < chr.length; i++) {
+			if(chr[i] != '!' && chr[i] != '.' && chr[i] != ',' && chr[i] != '?' && chr[i] != ':' && chr[i] != '"'){
+				stack.push(chr[i]);
+				queue.enqueue(chr[i]);
+			}
 		}
-
 		while (! stack.empty() && ! queue.empty()) {
+			
 			if (! stack.pop().equals(queue.dequeue())) {
 				return false;
 			}
 		}
-		
 		// At this point, the stack AND the queue should be empty. But check in case...
 		if (!stack.empty() || ! queue.empty())
 			return false;
